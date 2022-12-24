@@ -1,5 +1,5 @@
-import { Box, Container, Flex } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import { Box, Container } from '@chakra-ui/react';
+import React from 'react';
 
 import { sky } from 'assets/images';
 import CurrentWeather from 'components/CurrentWeather';

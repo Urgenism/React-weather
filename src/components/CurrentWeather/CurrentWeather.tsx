@@ -1,13 +1,13 @@
 import { Alert, AlertIcon } from '@chakra-ui/alert';
 import { Image } from '@chakra-ui/image';
-import { Box, Divider, Flex, Heading, Text } from '@chakra-ui/layout';
-import { Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/skeleton';
-import { Spinner } from '@chakra-ui/spinner';
+import { Divider, Flex, Heading, Text } from '@chakra-ui/layout';
+import { Skeleton, SkeletonText } from '@chakra-ui/skeleton';
 import React from 'react';
 
 import { useFetchCurrentWeathers } from 'hooks/api/useFetchCurrentWeather';
 import { IWeatherSearchParams } from 'type';
 import { formatUnixTimestamp } from 'utils/format';
+import { generateIconUrl } from 'utils/generateUrl';
 
 interface ICurrentWeatherProps {
   searchParams: IWeatherSearchParams;
@@ -41,11 +41,7 @@ const CurrentWeather: React.FC<ICurrentWeatherProps> = ({ searchParams }) => {
             {data?.name}, {data?.sys.country}
           </Heading>
           <Flex alignItems="center" flexDirection={{ base: 'column', sm: 'row' }}>
-            <Image
-              src={'http://openweathermap.org/img/w/' + data?.weather[0].icon + '.png'}
-              alt={data?.weather[0].description}
-              boxSize="80px"
-            />
+            <Image src={generateIconUrl(data?.weather[0].icon)} alt={data?.weather[0].description} boxSize="80px" />
             <Text fontSize="5xl">{data?.main.temp} &#8451;</Text>
           </Flex>
           <Text fontSize="2xl">{data?.weather[0].main}</Text>

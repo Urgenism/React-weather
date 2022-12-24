@@ -5,6 +5,7 @@ import React from 'react';
 import { useFetchDailyForecast } from 'hooks/api/useFetchDailyForecast';
 import { IWeatherSearchParams } from 'type';
 import { formatDateToDay } from 'utils/format';
+import { generateIconUrl } from 'utils/generateUrl';
 
 interface IDailyForecastProps {
   searchParams: IWeatherSearchParams;
@@ -35,7 +36,7 @@ const Forecast: React.FC<IDailyForecastProps> = ({ searchParams }) => {
 
                   <Flex justifyContent="center">
                     <Image
-                      src={'http://openweathermap.org/img/w/' + item.weather[0].icon + '.png'}
+                      src={generateIconUrl(item.weather[0].icon)}
                       alt={item.weather[0].description}
                       boxSize="50px"
                     />
