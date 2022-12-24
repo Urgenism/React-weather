@@ -4,7 +4,7 @@ import { settings } from 'global/settings';
 
 // Default API will be your root
 const API_ROOT = settings.API_URL || '';
-const TIMEOUT = 180000;
+const TIMEOUT = settings.API_TIMEOUT || 30000;
 
 /**
  * API call utility function
@@ -27,9 +27,7 @@ const http = (baseURL: string = API_ROOT, timeout: number = TIMEOUT) => {
     return response;
   }
 
-  /** Intercept any unauthorized request.
-   * status 401 means either accessToken is expired or invalid
-   * dispatch logout action accordingly **/
+  /** Intercept any unauthorized request.**/
   function handleError(error: AxiosError) {
     return Promise.reject(error?.response?.data);
   }

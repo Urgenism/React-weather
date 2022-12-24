@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { endpoints } from 'global/endpoints';
 import { settings } from 'global/settings';
-import { ILatLon, IWeatherSearchParams } from 'type';
+import { IWeatherSearchParams } from 'type';
 import http from 'utils/http';
 import { stringifySearchParams } from 'utils/searchParams';
 

@@ -16,7 +16,7 @@ interface ICurrentWeatherProps {
 const CurrentWeather: React.FC<ICurrentWeatherProps> = ({ searchParams }) => {
   const { status, data, error } = useFetchCurrentWeathers(searchParams);
 
-  if (error)
+  if (status === 'error' && error)
     return (
       <Alert status="error" color="InfoText">
         <AlertIcon />
@@ -26,7 +26,7 @@ const CurrentWeather: React.FC<ICurrentWeatherProps> = ({ searchParams }) => {
 
   return (
     <Flex color="white" textAlign="center" flexDir="column" alignItems="center" margin="auto" p="2" maxWidth="400px">
-      {status === 'loading' ? (
+      {status === 'loading' && (
         <Flex alignItems="center" flexDirection="column" width="100%" textAlign="center">
           <Skeleton height="30px" mb="4" width="50%" />
           <Skeleton height="40px" mb="4" width="60%" />
@@ -35,7 +35,8 @@ const CurrentWeather: React.FC<ICurrentWeatherProps> = ({ searchParams }) => {
           <Divider my="2" />
           <SkeletonText noOfLines={3} skeletonHeight="2" spacing="3" width="50%" mt="2" />
         </Flex>
-      ) : (
+      )}
+      {status === 'success' && data ? (
         <>
           <Heading size="lg">
             {data?.name}, {data?.sys.country}
@@ -51,7 +52,7 @@ const CurrentWeather: React.FC<ICurrentWeatherProps> = ({ searchParams }) => {
           <Text>Humidiy: {data?.main.humidity} %</Text>
           <Text>Pressure: {data?.main.pressure} hPa</Text>
         </>
-      )}
+      ) : null}
     </Flex>
   );
 };
