@@ -1,7 +1,9 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
+import { settings } from 'global/settings';
+
 // Default API will be your root
-const API_ROOT = import.meta.env.VITE_OPENWEATHER_ENDPOINT || '';
+const API_ROOT = settings.API_URL || '';
 const TIMEOUT = 180000;
 
 /**
