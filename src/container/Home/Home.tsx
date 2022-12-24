@@ -1,17 +1,40 @@
-import React from 'react';
+import { Box, Container, Flex } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
 
+import { sky } from 'assets/images';
 import CurrentWeather from 'components/CurrentWeather';
 import DailyForecast from 'components/DailyForecast';
-import { useFindCurrentLatLong } from 'hooks/useFindCurrentLatLon';
+import SearchInput from 'components/SearchInput/SearchInput';
+import { useHandleSearchParams } from 'hooks/useHandleSearchParams';
 
-const Home = () => {
-  const latLng = useFindCurrentLatLong();
+const Home: React.FC<{}> = () => {
+  const { searchParams, handleFormSubmit } = useHandleSearchParams();
 
   return (
-    <div>
-      <CurrentWeather latLng={latLng} />
-      <DailyForecast latLng={latLng} />
-    </div>
+    <Box
+      minHeight="100vh"
+      width="100%"
+      height="100%"
+      backgroundImage={sky}
+      backgroundColor="blue.50"
+      backgroundSize="cover"
+      backgroundPosition="center"
+      backgroundRepeat="no-repeat"
+      color="white"
+      p={{ md: '10' }}
+    >
+      <Container
+        background="blackAlpha.600"
+        maxWidth="6xl"
+        p={{ base: '4', md: '6' }}
+        height={{ base: '100%', md: 'initial' }}
+        minHeight={{ base: '100vh', md: 'initial' }}
+      >
+        <SearchInput handleFormSubmit={handleFormSubmit} />
+        <CurrentWeather searchParams={searchParams} />
+        <DailyForecast searchParams={searchParams} />
+      </Container>
+    </Box>
   );
 };
 

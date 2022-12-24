@@ -1,25 +1,56 @@
+import { Image } from '@chakra-ui/image';
+import { Box, Text, Heading, SimpleGrid, Flex } from '@chakra-ui/layout';
 import React from 'react';
 
-import { ILatLon, useFetchDailyForecast } from 'hooks/useFetchDailyForecast';
+import { useFetchDailyForecast } from 'hooks/api/useFetchDailyForecast';
+import { IWeatherSearchParams } from 'type';
+import { formatDateToDay } from 'utils/format';
 
 interface IDailyForecastProps {
-  latLng: ILatLon;
+  searchParams: IWeatherSearchParams;
 }
 
-const Forecast: React.FC<IDailyForecastProps> = ({ latLng }) => {
-  const { data, status } = useFetchDailyForecast(latLng);
+const Forecast: React.FC<IDailyForecastProps> = ({ searchParams }) => {
+  const { data, status, error } = useFetchDailyForecast(searchParams);
 
-  console.log(data, 'data');
+  if (status !== 'success') return null;
+
   return (
-    <div>
-      {Array.isArray(data?.list) && data?.list.length
-        ? data.list.map((item: any) => {
-            const date = new Date(item.dt * 1000);
+    <Box mt="8">
+      <Heading mb="4">Daily Forecast</Heading>
+      <SimpleGrid columns={{ base: 1, lg: 5 }} spacing={{ base: 0, md: 2 }}>
+        {Array.isArray(data?.list) && data?.list.length
+          ? data.list.map((item: any) => {
+              return (
+                <Flex
+                  key={item.dt}
+                  textAlign="center"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  flexDirection={{ base: 'row', lg: 'column' }}
+                >
+                  <Text fontSize={{ base: 'md', lg: '2xl' }} fontWeight="bold">
+                    {formatDateToDay(new Date(item.dt_txt))}
+                  </Text>
 
-            return <div key={item.dt}>{date.toLocaleString()}</div>;
-          })
-        : null}
-    </div>
+                  <Flex justifyContent="center">
+                    <Image
+                      src={'http://openweathermap.org/img/w/' + item.weather[0].icon + '.png'}
+                      alt={item.weather[0].description}
+                      boxSize="50px"
+                    />
+                  </Flex>
+
+                  <Text fontWeight="bold" fontSize={{ base: 'sm', lg: 'md' }}>
+                    {item.main.temp_max} / {item.main.temp_min} &#8451;
+                  </Text>
+                  <Text display={{ base: 'none', sm: 'block' }}>{item.weather[0].main}</Text>
+                </Flex>
+              );
+            })
+          : null}
+      </SimpleGrid>
+    </Box>
   );
 };
 

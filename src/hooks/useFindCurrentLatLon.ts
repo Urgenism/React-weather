@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
-import { ILatLon } from './useFetchCurrentWeather';
+import { ILatLon } from 'type';
 
 export const useFindCurrentLatLong = () => {
-  const [latLong, setLatLong] = useState<ILatLon>({ lat: null, lon: null });
+  const [latLong, setLatLong] = useState<ILatLon>({ lat: undefined, lon: undefined });
 
   useEffect(() => {
     if (navigator.geolocation) {
