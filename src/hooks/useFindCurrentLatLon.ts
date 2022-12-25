@@ -1,7 +1,7 @@
 import { useToast } from '@chakra-ui/toast';
 import { useEffect, useState } from 'react';
 
-import { DEFAULT_LAT, DETAULT_LON } from 'global/constants';
+import { DEFAULT_LAT, DEFAULT_LON } from 'global/constants';
 import { ILatLon } from 'type';
 
 export const useFindCurrentLatLong = () => {
@@ -18,7 +18,7 @@ export const useFindCurrentLatLong = () => {
           setLatLong({ lat, lon });
         },
         error => {
-          setLatLong({ lat: DEFAULT_LAT, lon: DETAULT_LON });
+          setLatLong({ lat: DEFAULT_LAT, lon: DEFAULT_LON });
           toast({
             title: error.message,
             description: 'Default location will be Thapathali, NP',
@@ -31,11 +31,9 @@ export const useFindCurrentLatLong = () => {
         }
       );
     } else {
-      setLatLong({ lat: DEFAULT_LAT, lon: DETAULT_LON });
+      setLatLong({ lat: DEFAULT_LAT, lon: DEFAULT_LON });
     }
   }, []);
-
-  console.log(latLong, 'latLong');
 
   return latLong;
 };

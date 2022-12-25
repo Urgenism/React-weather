@@ -10,12 +10,12 @@ yarn tsc || (
     false;
 )
 
-
 # Check eslint, prettier and test before commit
 yarn lint-staged || (
     echo '❌❌❌ Failed lint-staged check. ❌❌❌'
     false;
 )
+
 
 # If everything passes... Now we can commit
 echo '✅✅✅ Linting, Styling and Testing passed... This changes will be committed now. ✅✅✅'
