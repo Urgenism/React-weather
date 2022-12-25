@@ -12,7 +12,7 @@ interface IDailyForecastProps {
 }
 
 const Forecast: React.FC<IDailyForecastProps> = ({ searchParams }) => {
-  const { data, status, error } = useFetchDailyForecast(searchParams);
+  const { data, status } = useFetchDailyForecast(searchParams);
 
   if (status !== 'success') return null;
 

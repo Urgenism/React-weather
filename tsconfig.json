@@ -17,6 +17,6 @@
     "jsx": "react-jsx",
     "baseUrl": "./src"
   },
-  "include": ["src"],
+  "include": ["src", ".eslintrc.json", "src/setupTests.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
