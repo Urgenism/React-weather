@@ -21,8 +21,8 @@ function App() {
     <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <Home />
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
       <ToastContainer />
     </ChakraProvider>
   );
